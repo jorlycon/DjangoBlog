@@ -1,6 +1,7 @@
 from django.http.response import HttpResponse
 from django.urls import path
 from . import views
+from blog.feeds import AllPostsRssFeed
 
 app_name = 'blog'
 urlpatterns = [

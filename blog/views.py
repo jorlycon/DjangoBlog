@@ -44,7 +44,7 @@ class PostDetailView(DetailView):
 
         # 视图必须返回一个 HttpResponse 对象
         return response
-'''
+
     def get_object(self, queryset=None):
         # 覆写 get_object 方法的目的是因为需要对 post 的 body 值进行渲染
         post = super().get_object(queryset=None)
@@ -79,6 +79,7 @@ def detail(request, pk):
     post.toc = m.group(1) if m is not None else ''
 
     return render(request, 'blog/detail.html', context={'post': post})
+'''
 
 class ArchiveView(IndexView):
     def get_queryset(self):
