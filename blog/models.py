@@ -70,6 +70,17 @@ class Post(models.Model):
         self.views += 1
         self.save(update_fields=['views'])
 
+    
+    def toc(self):
+        return self.rich_content.get("toc", "")
+
+    @property
+    def body_html(self):
+        return self.rich_content.get("content", "")
+
+    @cached_property
+    def rich_content(self):
+        return generate_rich_content(self.body)
 '''
     @property
     def toc(self):
