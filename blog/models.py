@@ -70,6 +70,7 @@ class Post(models.Model):
         self.views += 1
         self.save(update_fields=['views'])
 
+'''
     @property
     def toc(self):
         return self.rich_content.get("toc", "")
@@ -81,6 +82,8 @@ class Post(models.Model):
     @cached_property
     def rich_content(self):
         return generate_rich_content(self.body)
+'''
+
 
 def generate_rich_content(value):
     md = markdown.Markdown(

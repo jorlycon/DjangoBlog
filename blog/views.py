@@ -9,6 +9,8 @@ from blog.models import Category, Tag, Post
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from pure_pagination.mixins import PaginationMixin
+from django.contrib import messages
+from django.db.models import Q
 
 # Create your views here.
 class IndexView(PaginationMixin, ListView):
@@ -25,6 +27,7 @@ def index(request):
     }
     return render(request, 'blog/index.html', context)
 '''
+
 class PostDetailView(DetailView):
     # 这些属性的含义和 ListView 是一样的
     model = Post
@@ -36,7 +39,7 @@ class PostDetailView(DetailView):
         # get 方法返回的是一个 HttpResponse 实例
         # 之所以需要先调用父类的 get 方法，是因为只有当 get 方法被调用后，
         # 才有 self.object 属性，其值为 Post 模型实例，即被访问的文章 post
-        response = super().get(request, *args, **kwargs)
+        response = super(PostDetailView, self).get(request, *args, **kwargs)
 
         # 将文章阅读量 +1
         # 注意 self.object 的值就是被访问的文章 post
@@ -116,3 +119,13 @@ def tag(request, pk):
     post_list = Post.objects.filter(tags=t)
     return render(request, 'blog/index.html', context={'post_list': post_list})
 '''
+def search(request):
+    q = request.GET.get('q')
+
+    if not q:
+        error_msg = "请输入搜索关键词"
+        messages.add_message(request, messages.ERROR, error_msg, extra_tags='danger')
+        return redirect('blog:index')
+
+    post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+    return render(request, 'blog/index.html', {'post_list': post_list})
