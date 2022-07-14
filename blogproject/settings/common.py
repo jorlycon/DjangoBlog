@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'pure_pagination',  # 分页
     'blog.apps.BlogConfig',
     'comments.apps.CommentsConfig',
+    'ckeditor',  # 富文本编辑器
+    'mdeditor',  # md编辑器
 ]
 
 MIDDLEWARE = [
@@ -123,3 +125,7 @@ PAGINATION_SETTINGS = {
     'MARGIN_PAGES_DISPLAYED': 2, # 分页条开头和结尾显示的页数
     'SHOW_FIRST_PAGE_WHEN_INVALID': True, # 当请求了不存在页，显示第一页
 }
+
+# mdeditor 编辑器设置
+MEDIA_URL = "/media/"		
+MEDIA_ROOT = os.path.join(BASE_DIR, "media") #设置图片存放路径

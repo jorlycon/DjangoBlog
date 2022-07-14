@@ -11,6 +11,8 @@ gunicorn = "*"
 faker = "*"
 django-pure-pagination = "*"
 django-haystack = "*"
+django-ckeditor = "*"
+django-mdeditor = "*"
 
 [dev-packages]
 fabric = "*"
